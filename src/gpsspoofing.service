@@ -1,0 +1,14 @@
+[Unit]
+Description=gpsspoofing
+BindsTo=sys-subsystem-net-devices-wlp0s20f3.device
+After=sys-subsystem-net-devices-wlp0s20f3.device
+
+
+[Service]
+Type=simple
+WorkingDirectory=/home/mcr/GPS_SPOOFING/BUILD
+ExecStart=/home/mcr/GPS_SPOOFING/BUILD/GPS_SPOOFING
+
+
+[Install]
+WantedBy=multi-user.target
