@@ -1,5 +1,5 @@
 # De ung dung khoi dong cung may voi ubuntu >=16.04
-# cp /home/mcr/GPS_SPOOFING/src/gpsspoofing.service /etc/systemd/gpsspoofing.service
+# cp /home/mcr/GPS_SPOOFING/src/gpsspoofing.service /etc/systemd/system/gpsspoofing.service
 # sudo systemctl enable gpsspoofing
 # sudo systemctl start gpsspoofing
 
