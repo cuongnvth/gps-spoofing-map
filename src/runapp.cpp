@@ -18,7 +18,7 @@
 
 runapp::runapp(QObject *parent) :
     QObject(parent),
-    start_condition(false),
+    init_app(true),
     downloadfile(true)
 {
     watcher = new QFileSystemWatcher();
@@ -60,41 +60,42 @@ void runapp::runSchedule() // Ham chay chinh
         downloadfile = true;
     }
 
-    if(state == "start"){
-        start_device();
-    }
 
-    if(state == "start" && start_condition == true && (temp_la2!=t_lat || temp_lo2!=t_lon)){
-        qDebug() << "co update";
+    //if(state == "start" && start_condition == true && (temp_la2!=t_lat || temp_lo2!=t_lon)){
+    if(state == "start" ){
 
         temp_la2 = t_lat;
         temp_lo2 = t_lon;
 
         local2=QString::number(temp_la2).toStdString()+","+
                 QString::number(temp_lo2).toStdString()+","+QString::number(heigh).toStdString();
-
-       tran->gpsSetLocal(local2.c_str());
-
+        if(init_app){
+            start_device();
+        }
+        else{
+            qDebug() << "Update!";
+            tran->gpsSetLocal(local2.c_str());
+        }
     }
 
-    if(state == "stop" && start_condition == true){
+    if(state == "stop"){
         tran->stop();
-        start_condition = false;
+        init_app = true;
+        qDebug() << "Stop app";
     }
 }
 
 
 //*************************************************************************
 void runapp::start_device(){ // Ham phat gps
-    if(!start_condition){
-        local1="10.816883, 106.658084,5"; //SBTSN
-        strIpAdd="serial=31703F3";//B205-mini
-        //strIpAdd="addr=192.168.10.2";
-        local2 = local1;
+        //local1="10.816883, 106.658084,5"; //SBTSN
+        local1="21.2203797,105.7944458,5"; //SBNB
+
+        //strIpAdd="serial=31703F3";//B205-mini
+        strIpAdd="addr=192.168.10.2";
         tran = new transmitter(strIpAdd.c_str(),local1.c_str(),"hourly.n");
         tran->start();
-        start_condition = true;
-        }
+        init_app = false;
 
 }
 //*************************************************************************
