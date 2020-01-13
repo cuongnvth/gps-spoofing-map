@@ -88,8 +88,8 @@ void runapp::runSchedule() // Ham chay chinh
 void runapp::start_device(){ // Ham phat gps
     if(!start_condition){
         local1="10.816883, 106.658084,5"; //SBTSN
-        strIpAdd="serial=31703F3";//B205-mini
-        //strIpAdd="addr=192.168.10.2";
+        //strIpAdd="serial=31703F3";//B205-mini
+        strIpAdd="addr=192.168.10.2";
         local2 = local1;
         tran = new transmitter(strIpAdd.c_str(),local1.c_str(),"hourly.n");
         tran->start();
