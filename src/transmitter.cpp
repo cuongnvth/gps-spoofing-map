@@ -12,6 +12,7 @@ transmitter::transmitter(std::string device_add, const char *loc,std::string pat
     tb = gr::make_top_block("application");
 
     uhdSink = gr::uhd::usrp_sink::make(device_add, uhd::stream_args_t("fc32"));
+    uhdSink->set_clock_source("external");
     uhdSink->set_samp_rate(SAMPLE_FREQ);
     uhdSink->set_center_freq(1575420000);
     uhdSink->set_gain(50);
