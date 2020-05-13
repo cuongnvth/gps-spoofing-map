@@ -1,6 +1,6 @@
 # gps-spoofing-map
 Server:
-https://drive.google.com/open?id=1o8yo6jae4qDdpNeVKtKQPmWQZRw5veMy
+https://drive.google.com/open?id=1iKJQ5kOzct6gQ3pVsIHPh4HjSVX0Rr99
 
 #Add modem Huawei E3276 
 
@@ -21,3 +21,6 @@ ATTRS{idVendor}=="12d1", ATTRS{idProduct}=="14fe", RUN+="/usr/sbin/usb_modeswitc
 gksudo gedit /etc/modules
 
 usbserial vendor=0x12d1 product=0x14fe
+
+# add modem manager 
+sudo apt-get install modem-manager-gui
