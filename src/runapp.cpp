@@ -95,9 +95,9 @@ void runapp::start_device(){ // Ham phat gps
     }
 
     local2 = local1;
-    strIpAdd="serial=31703F3";//B205-mini
+//     strIpAdd="serial=31703F3";//B205-mini
 //    strIpAdd="serial=30BC5FT";//B210
-//    strIpAdd="addr=192.168.10.2";
+   strIpAdd="addr=192.168.10.2";
     tran = new transmitter(strIpAdd.c_str(),local1.c_str(),"hourly.n");
     tran->start();
 
