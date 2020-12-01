@@ -8,6 +8,7 @@
 #include <QObject>
 #include <QtCore>
 #include <QString>
+#include <QFile>
 //#include <QDialog>
 //#include <QLabel>
 //#include <QWidget>
@@ -32,14 +33,15 @@ private:
     std::string temp_local1;
     std::string temp_local2;
     std::string Path_File;
-    bool start_condition;
-    bool downloadfile;
 
     double temp_la1;
     double temp_lo1;
     double temp_h1;
     double temp_la2;
     double temp_lo2;
+    double temp_h2;
+
+    QString readConfigFile;
 
     transmitter *tran;
     QFileSystemWatcher *watcher;

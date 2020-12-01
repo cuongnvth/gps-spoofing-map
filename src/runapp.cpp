@@ -17,9 +17,7 @@
 #include <cstdlib>
 
 runapp::runapp(QObject *parent) :
-    QObject(parent),
-    start_condition(false),
-    downloadfile(true)
+    QObject(parent)
 {
     watcher = new QFileSystemWatcher();
     watcher->addPath("../mapserver/views/truyen_du_lieu.json");
@@ -30,71 +28,78 @@ runapp::~runapp(){}
 
 void runapp::runSchedule() // Ham chay chinh
 {
-    //qDebug() << "File change...";
-    QString settings;
+    qDebug() << "File change...";
+    
     QString state;
-    QString state_dowload;
-    double heigh;
+    double t_hi;
     double t_lat;
-    double t_lon;
+    double t_lng;
+
+
     QFile file("../mapserver/views/truyen_du_lieu.json");
     file.open(QIODevice::ReadOnly | QIODevice::Text);
-    settings = file.readAll();
+    readConfigFile = file.readAll();
     file.close();
-    QJsonDocument settdoc = QJsonDocument::fromJson(settings.toUtf8());
-    //qDebug() << settdoc.isNull();
-    QJsonObject sett2 = settdoc.object();
-    //qDebug() << sett2.value(QString("cao"));  // <- print my title
-
-    t_lat = sett2.value(QString("lat")).toDouble();
-    t_lon = sett2.value(QString("lng")).toDouble();
-    heigh = sett2.value(QString("cao")).toDouble();
-    state = sett2.value(QString("start_stop")).toString();
-    state_dowload = sett2.value(QString("download_file")).toString();
-
-    if(state_dowload == "dow" && downloadfile == true){
-        system("../src/gethourly.sh");
-        downloadfile = false;
-    }
-    if(state_dowload == "no_dow"){
-        downloadfile = true;
-    }
+    QJsonDocument newLocation = QJsonDocument::fromJson(readConfigFile.toUtf8());
+    QJsonObject sett = newLocation.object();
+    t_lat = sett.value(QString("lat")).toDouble();
+    t_lng = sett.value(QString("lng")).toDouble();
+    t_hi = sett.value(QString("hi")).toDouble();
+    state = sett.value(QString("start_stop")).toString();
 
     if(state == "start"){
-        start_device();
+        qDebug() << "Power Start";
+        tran->start();
+        if(temp_la2!=t_lat || temp_lo2!=t_lng){
+            qDebug() << "Update Location";
+            temp_la2 = t_lat;
+            temp_lo2 = t_lng;
+            temp_h2 = t_hi;
+            local2=QString::number(temp_la2).toStdString()+","+
+                    QString::number(temp_lo2).toStdString()+","+QString::number(temp_h2).toStdString();
+
+           tran->gpsSetLocal(local2.c_str());
+       }
     }
 
-    if(state == "start" && start_condition == true && (temp_la2!=t_lat || temp_lo2!=t_lon)){
-        qDebug() << "co update";
-
-        temp_la2 = t_lat;
-        temp_lo2 = t_lon;
-
-        local2=QString::number(temp_la2).toStdString()+","+
-                QString::number(temp_lo2).toStdString()+","+QString::number(heigh).toStdString();
-
-       tran->gpsSetLocal(local2.c_str());
-
-    }
-
-    if(state == "stop" && start_condition == true){
+    if(state == "stop"){
+        qDebug() << "Power Stop";
         tran->stop();
-        start_condition = false;
     }
 }
 
 
 //*************************************************************************
 void runapp::start_device(){ // Ham phat gps
-    if(!start_condition){
+
+    QFile file("../mapserver/views/truyen_du_lieu.json");
+    file.open(QIODevice::ReadOnly | QIODevice::Text);
+    readConfigFile = file.readAll();
+    file.close();
+    qWarning() << readConfigFile;
+    if(readConfigFile.isNull() || readConfigFile.isEmpty()){
         local1="10.816883, 106.658084,5"; //SBTSN
-        //strIpAdd="serial=31703F3";//B205-mini
-        strIpAdd="addr=192.168.10.2";
-        local2 = local1;
-        tran = new transmitter(strIpAdd.c_str(),local1.c_str(),"hourly.n");
-        tran->start();
-        start_condition = true;
-        }
+        qDebug() << "\nNull File\n";
+
+    }
+    else{
+        QJsonDocument defaultLocation = QJsonDocument::fromJson(readConfigFile.toUtf8());
+        QJsonObject setLocation = defaultLocation.object();
+        temp_la1 = setLocation.value(QString("def_lat")).toDouble();
+        temp_lo1 = setLocation.value(QString("def_lng")).toDouble();
+        temp_h1 = setLocation.value(QString("def_hi")).toDouble();
+        local1 = QString::number(temp_la1).toStdString()+","+
+                QString::number(temp_lo1).toStdString()+","+QString::number(temp_h1).toStdString();
+        qDebug() << "Data File";
+
+    }
+
+    local2 = local1;
+    strIpAdd="serial=31703F3";//B205-mini
+//    strIpAdd="serial=30BC5FT";//B210
+//    strIpAdd="addr=192.168.10.2";
+    tran = new transmitter(strIpAdd.c_str(),local1.c_str(),"hourly.n");
+    tran->start();
 
 }
 //*************************************************************************

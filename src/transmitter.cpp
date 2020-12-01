@@ -15,7 +15,7 @@ transmitter::transmitter(std::string device_add, const char *loc,std::string pat
     uhdSink->set_clock_source("external");
     uhdSink->set_samp_rate(SAMPLE_FREQ);
     uhdSink->set_center_freq(1575420000);
-    uhdSink->set_gain(50);
+    uhdSink->set_gain(70);
 
     sscanf(loc,"%lf,%lf,%lf",&llh[0], &llh[1], &llh[2]);
     gps_s = make_gps_source("hourly.n",llh);
@@ -25,10 +25,7 @@ transmitter::transmitter(std::string device_add, const char *loc,std::string pat
 
 }
 
-transmitter::~transmitter()
-{
-
-}
+transmitter::~transmitter(){}
 
 void transmitter::start()
 {

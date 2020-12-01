@@ -1,7 +1,8 @@
 #ifndef TRANSMITTER_H
 #define TRANSMITTER_H
 
-#include <gnuradio/analog/sig_source_c.h>
+//#include <gnuradio/analog/sig_source_f.h>
+#include <gnuradio/analog/sig_source.h>
 #include <gnuradio/top_block.h>
 #include <gnuradio/uhd/usrp_sink.h>
 #include <uhd/usrp/multi_usrp.hpp>

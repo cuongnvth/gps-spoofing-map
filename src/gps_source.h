@@ -5,7 +5,7 @@
 #include <gnuradio/sync_block.h>
 #include "gpssim.h"
 
-#define SAMPLE_FREQ         2500000
+#define SAMPLE_FREQ         1600000
 #define SAMPLES_PER_BUFFER  1
 #define SAMPLES_PER_0_1SEC  (SAMPLE_FREQ/10)
 
