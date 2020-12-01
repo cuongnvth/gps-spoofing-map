@@ -14,7 +14,7 @@ sudo apt-get install -y pkg-config
 
 
 
-Phương pháp cài driver cho USB 4G Huawei trên ubuntu 16.04
+# Phương pháp cài driver cho USB 4G Huawei trên ubuntu 16.04
 
 Method 1:
 
