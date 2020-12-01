@@ -2,6 +2,19 @@
 Server:
 https://drive.google.com/open?id=1iKJQ5kOzct6gQ3pVsIHPh4HjSVX0Rr99
 
+# Cài đặt gps-spoofing-map trên Ubuntu 18.04
++ Cài đặt UHD, GNURadio, QT5
++ Biên dịch lại phần mềm 
++ Cài đăt NodeJs V10, gói PM2
++ Thiết lập USB 4G
++ Thiết lập khởi động 
+
+# xử lý lỗi thường gặp
+sudo apt-get install -y pkg-config
+
+
+
+Phương pháp cài driver cho USB 4G Huawei trên ubuntu 16.04
 
 Method 1:
 
