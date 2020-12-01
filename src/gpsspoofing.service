@@ -1,19 +1,16 @@
 # De ung dung khoi dong cung may voi ubuntu >=16.04
-# cp /home/mcr/GPS_SPOOFING/src/gpsspoofing.service /etc/systemd/system/gpsspoofing.service
+# cp ~/GPS_SPOOFING/src/gpsspoofing.service /etc/systemd/system/gpsspoofing.service
 # sudo systemctl enable gpsspoofing
 # sudo systemctl start gpsspoofing
 
 
 [Unit]
 Description=gpsspoofing
-BindsTo=sys-subsystem-net-devices-wlp0s20f3.device
-After=sys-subsystem-net-devices-wlp0s20f3.device
-
 
 [Service]
 Type=simple
-WorkingDirectory=/home/mcr/GPS_SPOOFING/BUILD
-ExecStart=/home/mcr/GPS_SPOOFING/BUILD/GPS_SPOOFING
+WorkingDirectory=~/GPS_SPOOFING/BUILD
+ExecStart=~/GPS_SPOOFING/BUILD/GPS_SPOOFING
 
 
 [Install]
