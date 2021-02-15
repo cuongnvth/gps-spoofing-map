@@ -436,8 +436,9 @@ int gps_source::work(int noutput_items,
             // Store I/Q samples into buffer
 //            out[(dataReaded+isamp)*2] = (short)i_acc;
 //            out[(dataReaded+isamp)*2+1] = (short)q_acc;
-            out[dataReaded+isamp].real() = i_acc;
-            out[dataReaded+isamp].imag() = q_acc;
+            //out[dataReaded+isamp].real() = i_acc;
+            //out[dataReaded+isamp].imag() = q_acc;
+            out[dataReaded+isamp]=gr_complex(i_acc,q_acc);
 
             dataCnt++;
             dataReaded++;

@@ -1,5 +1,4 @@
 #include "runapp.h"
-
 #include <QCoreApplication>
 #include <QFileSystemWatcher>
 #include <QDebug>
@@ -20,8 +19,8 @@
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
-    system("../src/mapserver.sh");
-    system("../src/gethourly.sh");
+    system("../src/mapserver.sh");sleep(1);
+    //system("../src/gethourly.sh");
     runapp w;
     w.start_device();
     return a.exec();
