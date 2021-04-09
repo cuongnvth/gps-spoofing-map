@@ -22,6 +22,7 @@ PKGCONFIG += gnuradio-analog\
 unix:!macx {
     LIBS += -lboost_system$$BOOST_SUFFIX -lboost_program_options$$BOOST_SUFFIX
     LIBS += -lrt
+    LIBS += -llog4cpp #ubuntu 20.04
 }
 
 macx{
