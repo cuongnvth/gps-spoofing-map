@@ -60,3 +60,13 @@ usbserial vendor=0x12d1 product=0x14fe
 # add modem manager 
 
 sudo apt-get install modem-manager-gui
+
+# sua loi khong nhan usb
+check lsusb -t
+
+sudo modprobe -r usbhid && sleep 5 && sudo modprobe usbhid
+
+usbhid la driver reset
+
+
+
