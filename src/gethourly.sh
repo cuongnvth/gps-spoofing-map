@@ -4,13 +4,6 @@ year=$(date +%Y)
 yr=$(date +%y)
 count=0
 
-if [ ! -e ".wgetrc" ]; then
-  echo "http_user=cuongnvth@gmail.com\nhttp_password=Cuongthoa106" > .wgetrc
-  echo "Enter your CDDIS portal credentials into .wgetrc and then re-run"
-  exit
-fi
-
-export WGETRC=./.wgetrc
 
 while [ 1 ] 
 do
